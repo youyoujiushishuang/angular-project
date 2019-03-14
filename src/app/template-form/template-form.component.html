@@ -1,6 +1,6 @@
 <!-- 模板表单 -->
 <form #myForm="ngForm" (ngSubmit)="OnSubmit(myForm.value)">
-  <div>用户名: <input type="text" ngModel name="username"></div>
+  <div>用户名: <input type="text" #username="ngModel" ngModel name="username"></div>
   <div>手机号: <input type="text"></div>
   <div>邮政编码: <input type="number"></div>
   <div>密码: <input type="password"></div>
@@ -20,3 +20,6 @@
 <!-- 模板本地变量 : #myForm="ngForm"  这样就拿到了 ngForm 创建的对象了 -->
 
 <!-- 在标记了ngForm 指令的表单内部使用ngModel 指令的时候,不再需要用括号将它包起来,直接使用就行 -->
+
+<!-- 表单中的每一项都可以使用模板本地变量,也可以获取表单的value #username="ngModel" -->
+<div>{{username.value}}</div>
