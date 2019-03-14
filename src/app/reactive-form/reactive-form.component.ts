@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive-form',
@@ -17,6 +17,13 @@ export class ReactiveFormComponent implements OnInit {
     from: new FormControl(),
     to: new FormControl()
   })
+
+  //创建一个 FormArray
+  emails:FormArray = new FormArray([
+    new FormControl("aaa.com"),
+    new FormControl("bbb.com"),
+    new FormControl("ccc.com"),
+  ])
   constructor() { }
 
   ngOnInit() {
