@@ -5,12 +5,19 @@
   <!-- 下面这个div的显示和隐藏是由后面的方法来判断的,如果是true就没有错误,内容隐藏,如果为false就显示出来,提示错误 -->
   <!-- formModel.hasError()方法中有两个参数,第一个是你希望校验的错误,不是校验器的值是发生错误的时候,返回的对象中的错误信息的key的值,第二个是校验的字段名字 -->
   <!-- 通过状态字段来控制错误提示信息是否显示 , 在字段合法或者是字段没有获取过焦点的时候就隐藏-->
+  <!--touched 和 untouched 判断用户是否访问过的字段,就是判断这些字段是否获取过焦点,如果获取过焦点,touched就是true,untouched就是 false,反之,没获取过焦点,touched就是false, untouched就是true这两个字段就是来控制错误信息是否要显示
+ -->
   <div [hidden]="formModel.get('username').valid || formModel.get('username').untouched">
     <div [hidden]="!formModel.hasError('required','username')">用户名时必填项</div>
     <div [hidden]="!formModel.hasError('minlength','username')">用户名最小长度是6</div>
   </div>
   <div>手机号: <input type="text" formControlName="mobile"></div>
-  <div [hidden]="!formModel.hasError('mobile','mobile')">请输入正确的手机号</div>
+  <!-- pristine 和 dirty : 如果一个字段的值从来没有被改变过,那么,pristine就是true , dirty就是false ; 反之,如果字段被修改过,那么pristinez就是false , dirty 就是true -->
+  <!-- 当字段合法或者是字段没有被改变过的时候,就隐藏 -->
+  <!-- 上面的 两种字段有一个共同点,只有当整个表单内部的字段都是 untouched或者是pristine的时候,整个表单的字段状态才是 untouched或者pristine,只要有一个表单的字段是touched或者dirty,那么整个表单的字段就是 touched或dirty -->
+  <div [hidden]="formModel.get('mobile').valid || formModel.get('mobile').pristine">
+    <div [hidden]="!formModel.hasError('mobile','mobile')">请输入正确的手机号</div>
+  </div>
   <div formGroupName="passwordsGroup">
       <div>密码: <input type="password" formControlName="password"></div>
       <!-- 注意:在一个formGroup里面还要校验里面的formControl中的数据,在formModel.hasError()的第二个参数必须是一个数组,数组里的第一个元素是一级的那个属性,第二个元素是二级的那个属性 -->
