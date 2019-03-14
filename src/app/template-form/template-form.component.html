@@ -1,7 +1,9 @@
 <!-- 模板表单 -->
 <form #myForm="ngForm" (ngSubmit)="OnSubmit(myForm.value)">
-  <div>用户名: <input type="text" #username="ngModel" ngModel name="username"></div>
-  <div>手机号: <input type="text"></div>
+  <div ngModelGroup="userInfo">
+    <div>用户名: <input type="text" #username="ngModel" ngModel name="username"></div>
+    <div>手机号: <input type="text"></div>
+  </div>
   <div>邮政编码: <input type="number"></div>
   <div>密码: <input type="password"></div>
   <div>确认密码: <input type="password"></div>
@@ -23,3 +25,5 @@
 
 <!-- 表单中的每一项都可以使用模板本地变量,也可以获取表单的value #username="ngModel" -->
 <div>{{username.value}}</div>
+
+<!-- ngModelGroup  可以与表单形成嵌套关系 输出后: { "userInfo": { "username": "sssss" } } -->
