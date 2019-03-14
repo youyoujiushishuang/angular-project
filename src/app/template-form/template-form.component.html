@@ -1,29 +1,11 @@
 <!-- 模板表单 -->
 <form #myForm="ngForm" (ngSubmit)="OnSubmit(myForm.value)">
-  <div ngModelGroup="userInfo">
-    <div>用户名: <input type="text" #username="ngModel" ngModel name="username"></div>
-    <div>手机号: <input type="text"></div>
+  <div>用户名: <input type="text" #username="ngModel" ngModel name="username"></div>
+  <div>手机号: <input ngModel name="mobile" type="text"></div>
+  <div ngModelGroup="passwordsGroup">
+    <div>密码: <input ngModel name="password" type="password"></div>
+    <div>确认密码: <input ngModel name="pconfirm" type="password"></div>
   </div>
-  <div>邮政编码: <input type="number"></div>
-  <div>密码: <input type="password"></div>
-  <div>确认密码: <input type="password"></div>
   <button type="submit">注册</button>
 </form>
-<!-- 在导入 FormsModule模块之后,所有的 form 表单都会自动被替换成 NgForm -->
-<!-- 此时再点击注册,就不能自动提交了,因为这个表单已经被托管到NgForm了 -->
-<!-- NgForm 会自动发现所有标有 NgModel 的子元素,并将它们的值自动添加到表单 的数据模型中 -->
-<!-- 1. NgForm 可以在 form 标签之外使用  -->
-<!-- <div ngForm></div> 这样跟上面直接写 form是一样的 -->
-<!-- 2. 如果不希望angular接管你的表单,就要添加 ngNoForm 指令 -->
-<!-- <form action="/register" method="post" ngNoForm> -->
-<!-- 获取到表单中的所有的数据,name属性的值会变成value对象中的属性名,表单内容会变成属性值 -->
-<!-- 管道符json 将对象转化为字符串 -->
-<div>{{myForm.value | json}}</div>
-<!-- 模板本地变量 : #myForm="ngForm"  这样就拿到了 ngForm 创建的对象了 -->
-
-<!-- 在标记了ngForm 指令的表单内部使用ngModel 指令的时候,不再需要用括号将它包起来,直接使用就行 -->
-
-<!-- 表单中的每一项都可以使用模板本地变量,也可以获取表单的value #username="ngModel" -->
-<div>{{username.value}}</div>
-
-<!-- ngModelGroup  可以与表单形成嵌套关系 输出后: { "userInfo": { "username": "sssss" } } -->
+<!-- 将密码和确认密码放在一起,方便一起校验 -->
