@@ -1,7 +1,7 @@
 <!-- 响应式注册表单 -->
 <!-- 在校验发生错误的时候,希望提示错误,这就需要更改我们的模板了, -->
 <form [formGroup]="formModel" (submit)="OnSubmit()">
-  <div>用户名: <input type="text" formControlName="username"></div>
+  <div>用户名: <input type="text" formControlName="username" [class.hasError]="formModel.get('username').invalid && formModel.get('username').touched"></div>
   <!-- 下面这个div的显示和隐藏是由后面的方法来判断的,如果是true就没有错误,内容隐藏,如果为false就显示出来,提示错误 -->
   <!-- formModel.hasError()方法中有两个参数,第一个是你希望校验的错误,不是校验器的值是发生错误的时候,返回的对象中的错误信息的key的值,第二个是校验的字段名字 -->
   <!-- 通过状态字段来控制错误提示信息是否显示 , 在字段合法或者是字段没有获取过焦点的时候就隐藏-->
