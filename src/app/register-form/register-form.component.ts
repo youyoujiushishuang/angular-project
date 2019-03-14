@@ -38,12 +38,16 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit() {
   }
   OnSubmit(){
-    let isValid:boolean = this.formModel.get("username").valid
-    console.log("username的校验结果是"+ isValid);  //username的校验结果是false
+    // let isValid:boolean = this.formModel.get("username").valid
+    // console.log("username的校验结果是"+ isValid);  //username的校验结果是false
     //还可以获取校验错误的信息
-    let errors:any = this.formModel.get("username").errors
-    console.log("username的错误信息是"+ JSON.stringify(errors));  //username的错误信息是{"required":true}
-    console.log(this.formModel.value)
+    // let errors:any = this.formModel.get("username").errors
+    // console.log("username的错误信息是"+ JSON.stringify(errors));  //username的错误信息是{"required":true}
+    //判断,只有整个form表单中的校验都是正确的,才是true,有一个为false就是false,只有全都正确的时候才打印出模型的信息
+    if(this.formModel.valid){
+      console.log(this.formModel.value)
+    }
+    
   }
 
 }
