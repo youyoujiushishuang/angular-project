@@ -21,6 +21,15 @@ export class RegisterFormComponent implements OnInit {
     
   }
   //将上面这个校验方法与mobile表单绑定之后,每次表单内容改变,都会触发这个方法
+  //接下来创建一个自定义校验器,来同时校验密码和确认密码
+  equalValidator(group:FormGroup):any{
+    let password:FormControl = group.get("password") as FormControl
+    let pconfirm:FormControl = group.get("pconfirm") as FormControl
+    let valid:boolean = (password.value === pconfirm.value)
+    console.log("密码的校验结果是"+valid);
+    //当校验通过的时候,返回null
+    return valid ? null : {equal : true}
+  }
   //1.声明一个formGroup 是整个数据结构
   formModel:FormGroup
   constructor(fb:FormBuilder) {
@@ -43,7 +52,7 @@ export class RegisterFormComponent implements OnInit {
       passwordsGroup:fb.group({
         password:[''],
         pconfirm:['']
-      })
+      },{validators:this.equalValidator})
     })
   }
 
