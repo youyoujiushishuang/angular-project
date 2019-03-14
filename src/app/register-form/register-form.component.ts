@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register-form',
@@ -22,9 +22,10 @@ export class RegisterFormComponent implements OnInit {
     //以上代码很多了,angular有一种服务 FormBuilder 可以帮助我们简化,在constructor中注入服务
     //注入服务之后,new FormGroup 可以替换成 fb.group 这个方法中还可以传入第二个参数,可以用来校验这个formGroup,此外
     //还可以用数组来实例化一个FormControl , 所以将new FormControl()直接替换成 [''] , 数组的第一个元素是 formControl的初始值,第二个元素是一个校验方法,第三个元素是一个异步校验方法
+    //angular有一些自定义的校验器,这些校验器都是在 validators中的,这些检验器可以传入到formControl中进行校验,如果有多个校验,可以用数组,可以在提交的方法里面看这个字段是否合法
     this.formModel = fb.group({
-      username:[''],
-      mobile:[''],
+      username:['',Validators.required],
+      mobile:['',[Validators.required,Validators.minLength(11)]],
       passwordsGroup:fb.group({
         password:[''],
         pconfirm:['']
@@ -35,6 +36,11 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit() {
   }
   OnSubmit(){
+    let isValid:boolean = this.formModel.get("username").valid
+    console.log("username的校验结果是"+ isValid);  //username的校验结果是false
+    //还可以获取校验错误的信息
+    let errors:any = this.formModel.get("username").errors
+    console.log("username的错误信息是"+ JSON.stringify(errors));  //username的错误信息是{"required":true}
     console.log(this.formModel.value)
   }
 
