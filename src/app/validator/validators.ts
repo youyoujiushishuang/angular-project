@@ -20,7 +20,7 @@ export function mobileAsyncValidator(control:FormControl):any{
     let valid = myreg.test(control.value)
     console.log("mobile的校验结果是"+valid);
     //此处有错误: Observable.of 不是一个function
-    // return Observable.of(valid ? null : {mobile : true})
+    // return Observable.of(valid ? null : {mobile : true}).delay(5000)
 }
 //将上面这个校验方法与mobile表单绑定之后,每次表单内容改变,都会触发这个方法
 //接下来创建一个自定义校验器,来同时校验密码和确认密码
