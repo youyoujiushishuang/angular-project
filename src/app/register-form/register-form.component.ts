@@ -23,5 +23,8 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit() {
   }
+  OnSubmit(){
+    console.log(this.formGroup.value)
+  }
 
 }
