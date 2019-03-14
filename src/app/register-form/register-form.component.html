@@ -18,6 +18,8 @@
   <div [hidden]="formModel.get('mobile').valid || formModel.get('mobile').pristine">
     <div [hidden]="!formModel.hasError('mobile','mobile')">请输入正确的手机号</div>
   </div>
+  <!-- 如果正在校验,pending为true,就取反,将字段显示出来 -->
+  <div [hidden]="!formModel.get('mobile').pending">正在校验手机号,请稍等</div>
   <div formGroupName="passwordsGroup">
       <div>密码: <input type="password" formControlName="password"></div>
       <!-- 注意:在一个formGroup里面还要校验里面的formControl中的数据,在formModel.hasError()的第二个参数必须是一个数组,数组里的第一个元素是一级的那个属性,第二个元素是二级的那个属性 -->
