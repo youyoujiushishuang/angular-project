@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { mobileValidator , equalValidator } from "../validator/validators"
 
 @Component({
   selector: 'app-register-form',
@@ -7,29 +8,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
   styleUrls: ['./register-form.component.less']
 })
 export class RegisterFormComponent implements OnInit {
-  //自定义校验器:
-  /* 就是一个普通的方法,方法的名字随便写,方法中必须传入一个参数,这个参数的类型必须是 AbstractControl类型的,然后必须有一个返回值,这个返回值可以是任意类型的对象,对这个对象只有一个要求,它的key必须是string类型的,值可以是任意类型的 */
-  /* xxx(control:AbstractControl):{[key:string]:any}{
-    return null
-  } */
-  //那么我们来定义一个校验mobile的方法吧
-  mobileValidator(control:FormControl):any{
-    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/
-    let valid = myreg.test(control.value)
-    console.log("mobile的校验结果是"+valid);
-    return valid ? null : {mobile : true}
-    
-  }
-  //将上面这个校验方法与mobile表单绑定之后,每次表单内容改变,都会触发这个方法
-  //接下来创建一个自定义校验器,来同时校验密码和确认密码
-  equalValidator(group:FormGroup):any{
-    let password:FormControl = group.get("password") as FormControl
-    let pconfirm:FormControl = group.get("pconfirm") as FormControl
-    let valid:boolean = (password.value === pconfirm.value)
-    console.log("密码的校验结果是"+valid);
-    //当校验通过的时候,返回null
-    return valid ? null : {equal : true}
-  }
+  
   //1.声明一个formGroup 是整个数据结构
   formModel:FormGroup
   constructor(fb:FormBuilder) {
@@ -48,11 +27,11 @@ export class RegisterFormComponent implements OnInit {
     //angular有一些自定义的校验器,这些校验器都是在 validators中的,这些检验器可以传入到formControl中进行校验,如果有多个校验,可以用数组,可以在提交的方法里面看这个字段是否合法
     this.formModel = fb.group({
       username:['',Validators.required],
-      mobile:['',this.mobileValidator],
+      mobile:['',mobileValidator],
       passwordsGroup:fb.group({
         password:[''],
         pconfirm:['']
-      },{validators:this.equalValidator})
+      },{validators:equalValidator})
     })
   }
 
