@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { mobileValidator , equalValidator } from "../validator/validators"
+import { mobileValidator , equalValidator , mobileAsyncValidator } from "../validator/validators"
 
 @Component({
   selector: 'app-register-form',
@@ -27,7 +27,7 @@ export class RegisterFormComponent implements OnInit {
     //angular有一些自定义的校验器,这些校验器都是在 validators中的,这些检验器可以传入到formControl中进行校验,如果有多个校验,可以用数组,可以在提交的方法里面看这个字段是否合法
     this.formModel = fb.group({
       username:['',[Validators.required , Validators.minLength(6)]],
-      mobile:['',mobileValidator],
+      mobile:['',mobileValidator,mobileAsyncValidator],
       passwordsGroup:fb.group({
         password:['', Validators.minLength(6)],
         pconfirm:['']
