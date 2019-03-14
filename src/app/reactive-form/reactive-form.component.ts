@@ -14,19 +14,30 @@ export class ReactiveFormComponent implements OnInit {
   //创建一个FormGroup
   formModel:FormGroup = new FormGroup({
     //里面包含一个起始日期和一个终止日期
-    from: new FormControl(),
-    to: new FormControl()
+    //声明一个FormGroup
+    dateRange:new FormGroup({
+      from: new FormControl(),
+      to: new FormControl()
+    }),
+    //创建一个 FormArray,这个也要在FormGroup范围内使用
+    emails:new FormArray([
+      new FormControl("aaa.com"),
+      new FormControl("bbb.com"),
+      new FormControl("ccc.com"),
+    ])
   })
 
-  //创建一个 FormArray
-  emails:FormArray = new FormArray([
-    new FormControl("aaa.com"),
-    new FormControl("bbb.com"),
-    new FormControl("ccc.com"),
-  ])
+  
   constructor() { }
 
   ngOnInit() {
   }
+  addEmail(){
+    let emails = this.formModel.get("emails") as FormArray
+    emails.push(new FormControl())
+  }
 
+  OnSubmit(){
+    console.log(this.formModel.value)
+  }
 }
