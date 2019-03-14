@@ -26,10 +26,10 @@ export class RegisterFormComponent implements OnInit {
     //还可以用数组来实例化一个FormControl , 所以将new FormControl()直接替换成 [''] , 数组的第一个元素是 formControl的初始值,第二个元素是一个校验方法,第三个元素是一个异步校验方法
     //angular有一些自定义的校验器,这些校验器都是在 validators中的,这些检验器可以传入到formControl中进行校验,如果有多个校验,可以用数组,可以在提交的方法里面看这个字段是否合法
     this.formModel = fb.group({
-      username:['',Validators.required],
+      username:['',[Validators.required , Validators.minLength(6)]],
       mobile:['',mobileValidator],
       passwordsGroup:fb.group({
-        password:[''],
+        password:['', Validators.minLength(6)],
         pconfirm:['']
       },{validators:equalValidator})
     })

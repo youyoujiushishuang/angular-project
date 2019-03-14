@@ -1,10 +1,19 @@
 <!-- 响应式注册表单 -->
+<!-- 在校验发生错误的时候,希望提示错误,这就需要更改我们的模板了, -->
 <form [formGroup]="formModel" (submit)="OnSubmit()">
   <div>用户名: <input type="text" formControlName="username"></div>
+  <!-- 下面这个div的显示和隐藏是由后面的方法来判断的,如果是true就没有错误,内容隐藏,如果为false就显示出来,提示错误 -->
+  <!-- formModel.hasError()方法中有两个参数,第一个是你希望校验的错误,不是校验器的值是发生错误的时候,返回的对象中的错误信息的key的值,第二个是校验的字段名字 -->
+  <div [hidden]="!formModel.hasError('required','username')">用户名时必填项</div>
+  <div [hidden]="!formModel.hasError('minlength','username')">用户名最小长度是6</div>
   <div>手机号: <input type="text" formControlName="mobile"></div>
+  <div [hidden]="!formModel.hasError('mobile','mobile')">请输入正确的手机号</div>
   <div formGroupName="passwordsGroup">
       <div>密码: <input type="password" formControlName="password"></div>
+      <!-- 注意:在一个formGroup里面还要校验里面的formControl中的数据,在formModel.hasError()的第二个参数必须是一个数组,数组里的第一个元素是一级的那个属性,第二个元素是二级的那个属性 -->
+      <div [hidden]="!formModel.hasError('minlength',['passwordsGroup','password'])">用户名最小长度是6</div>
       <div>确认密码: <input type="password" formControlName="pconfirm"></div>
+      <div [hidden]="!formModel.hasError('equal','passwordsGroup')">{{formModel.getError('equal','passwordsGroup')?.descxxx}}</div>
   </div>
   <button type="submit" >注册</button>
 </form>

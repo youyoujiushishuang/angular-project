@@ -21,5 +21,5 @@ let pconfirm:FormControl = group.get("pconfirm") as FormControl
 let valid:boolean = (password.value === pconfirm.value)
 console.log("密码的校验结果是"+valid);
 //当校验通过的时候,返回null
-return valid ? null : {equal : true}
+return valid ? null : {equal : {descxxx:"密码和确认密码不一致"}}
 }
